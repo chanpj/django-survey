@@ -1,0 +1,12 @@
+
+django-bootstrap-form==3.2.1
+django-tastypie==0.14.0 # API
+django-registration==2.2 # account logic, views and workflows
+pytz==2017.2
+future==0.16.0
+ordereddict==1.1
+PyYAML==3.12
+matplotlib==2.1.0rc1
+seaborn==0.8.1
+numpy==1.13.3
+

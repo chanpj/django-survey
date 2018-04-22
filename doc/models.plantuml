@@ -1,0 +1,62 @@
+@startuml
+package models {
+
+    note as N 
+        There is a circular import that is causing
+        a lot of import problems. It would
+        probably be logical to make sure that answer
+        in a Response all come from the same survey
+        and remove the foreign key to the survey
+        in response.
+        
+        Answer is also more complicated than that :
+        Getting the real answer child class is a
+        real pain.
+    end note
+  
+    class Survey{
+        +String name
+        +String description
+        +Boolean is_published
+        +Boolean need_logged_user
+        +Boolean display_by_question
+        +String template
+    }
+    
+    class Question {
+        +String text
+        +int order
+        +Boolean required
+        +String type
+        +String choices
+    }
+    
+    class Response {
+        Time created
+        Time updated
+        Uuid interview_uuid 
+    }
+    
+    class Category {
+        String name
+        int order
+        String description
+    }
+    
+    class Answer {
+        Time created
+        Time updated
+        String body
+    }
+    
+    class django.contrib.auth.models.User
+    
+    django.contrib.auth.models.User "1" -- "n" Response
+    Category "0" -- "n" Question
+    Survey "1" -- "n" Question
+    Survey "n" -- "0" Category
+    Response -- Survey
+    Answer "n" -- "1" Question
+    Answer "n" -- "1" Response
+}
+@enduml

@@ -1,0 +1,51 @@
+{% extends 'survey/base.html' %}
+{% load i18n %}
+{% load survey_extras %}
+
+{% block title %} {{survey.name}} {% endblock title %}
+
+{% block extrajs %}
+    {{response_form.media}}
+{% endblock %}
+
+{% block body %}
+	<h3> {{survey.name}} </h3>
+	<div class="survey-description"> {{survey.description|safe}} </div>
+	<div><form action="{% url 'survey-detail' id=survey.id %}" method="post">
+	    {% csrf_token %}
+        {% for category in categories %}
+
+
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				        <h6 class="panel-title"> <a
+				        data-toggle="collapse"
+				        data-parent="#accordion"
+				        href="#collapse{{category.slugify}}">
+				            {% trans "설문지" %}
+			            </a></h6>
+				    </div>
+                    <div class="category-container">
+				        <div id="collapse{{category.slugify}}"
+				        {{ response_form|collapse_form:category }}">
+				            <div class="panel-body">
+	                           {% include "survey/question.html" %}
+                            </div>
+		                </div>
+                </div>
+            </div>
+        {% empty %}
+            <h3> {% trans "Questions" %} </h3>
+            {% include "survey/question.html" %}
+        {% endfor %}
+
+        <br>
+
+	    <input
+            class="btn btn-default btn-sm"
+	        type="submit"
+	        value="{% trans "작성완료" %}"
+        >
+	</form></div>
+{% endblock %}

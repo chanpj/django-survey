@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}로그아웃{% endblock %}
+
+{% block body %}
+
+  <div> Successful log out </div>
+
+  <h2>Login again ?</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">로그아웃</button>
+  </form>
+{% endblock %}

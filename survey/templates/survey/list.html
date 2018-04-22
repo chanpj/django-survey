@@ -1,0 +1,16 @@
+{% extends 'survey/base.html' %}
+{% load i18n %}
+
+{% block body %}
+<div id="intro">
+	<h5>{% trans "역무본부　설문조사"%}</h5>
+
+	<ul>
+		{% for survey in surveys %}
+		<li><a href="{{ survey.get_absolute_url }}">{% trans ""%} {{survey.name}}</a></li>
+		{% endfor %}
+	</div>
+</div>
+
+
+{% endblock %}
